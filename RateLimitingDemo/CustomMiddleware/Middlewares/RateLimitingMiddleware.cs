@@ -34,7 +34,7 @@ public class RateLimitingMiddleware
         // Check whether the request violates the rate limit policy
 
         if (_clientStatistics!=null
-            && DateTime.Now <_clientStatistics.LastSuccessfulResponseTime.AddSeconds(rateLimitDecorator.TimeWindow)
+            && DateTime.UtcNow <_clientStatistics.LastSuccessfulResponseTime.AddSeconds(rateLimitDecorator.TimeWindow)
             && _clientStatistics.NumberofRequestsCompletedSuccessfully ==rateLimitDecorator.MaxRequests)
         {
             context.Response.StatusCode = (int)HttpStatusCode.TooManyRequests;
